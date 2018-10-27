@@ -1,4 +1,8 @@
-# CrayonCode-BDO-Project Rev. 30 (2/28/2018) Lavientia Event/ UI Update
+# CrayonCode-BDO-Project Rev. 30 (10/28/2018) Halloween Event/ UI Update
+
+- UI FIXED!
+- FISHING FIXED! (Inventory Bugs little bit)
+- Event ADDED!
 
 ## FOR FISHING ENTHUSIASTS:
 
@@ -16,7 +20,6 @@ Works ONLY in Fullscreen Windowed Mode, windowed mode bugs now because there's t
 
 **BDO must be visible and active (Doesn't work minimized)**
 
-Discussion and older versions can be found at https://www.elitepvpers.com/forum/black-desert/4268940-autoit-crayoncode-bot-project-opensource-free.html
 
 ## FOR PROCESSING ENTHUSIASTS:
 
@@ -28,12 +31,9 @@ Requirements:
 * SAVE settings after any changes otherwise they won't apply!
 * All QUESTS from the NPC must be accepted and COMPLETED prior! BECAREFUL OF DAILY QUESTS THEY WILL BUG THE BOT.
 * If using new UI, you must switch back to old UI by clicking this button:
-https://cdn.discordapp.com/attachments/334788210649595904/418430477356236800/unknown.png
 
-For custom processing, use round numbers for BATCH and MAX. Basically the bot will do #MAX of #BATCH items. So if MAX was 100, and BATCH was 10, it will do 10 rounds of 10 items.
-For example: You have 3651 Birch Lumber, BATCH would be 500, MAX 3500. 
 
-This feature is still under development and might bug.
+Processing is under development and will not work jet!
 
 Any issues please report to the discord at: https://discord.gg/hj6jPrW
 
