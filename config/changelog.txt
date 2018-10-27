@@ -1,0 +1,3 @@
+Revision 31:
+* Added global fishing failsafe behavior to stop fishing if the amount of failed casts is higher than 1.
+* Increased delay between clicks for horse-loading so it fails a bit less, might still fail because of how fast it moves around though.

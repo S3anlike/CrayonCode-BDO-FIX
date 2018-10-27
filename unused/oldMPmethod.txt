@@ -1,0 +1,51 @@
+	For $i = 0 To 6
+		$count = 0
+		For $yBid = $Bid[1] To $Bid[2]
+			SetGUIStatus("Checking for bid")
+			$FF = FFGetPixel($ButtonRegion[0] + $Bid[0], $ButtonRegion[1] + $yBid + $BuyOffset[2] * $i, $SSN)
+			If $FF = $Valid[0] Or $FF = $Valid[1] Then
+				SetGUIStatus("Correct pixel detected, counter incremented")
+				$count += 1
+			Else
+				SetGUIStatus("Not a valid pixel")
+			EndIf
+		Next
+		If $count > 1 Then
+			SetGUIStatus("Bid " & $i)
+			MouseClick("left", $x + $BuyOffset[0], $y + $BuyOffset[1] + $i * $BuyOffset[2], 2, 0)
+			CoSe("{SPACE}")
+		EndIf
+	Next
+
+	For $i = 0 To 6
+		$count = 0
+		For $yBuy = $Buy[1] To $Buy[2]
+			SetGUIStatus("Checking for buy")
+			$FF = FFGetPixel($ButtonRegion[0] + $Buy[0], $ButtonRegion[1] + $yBuy + $BuyOffset[2] * $i, $SSN)
+			If $FF = $Valid[0] Or $FF = $Valid[1] Then
+				SetGUIStatus("Correct pixel detected, counter incremented")
+				$count += 1
+			Else
+				SetGUIStatus("Not a valid pixel")
+			EndIf
+		Next
+		If $count > 1 Then
+			SetGUIStatus("Buy " & $i)
+			Return ($i)
+		EndIf
+		$count = 0
+		For $yBidR = $BidR[1] To $BidR[2]
+			SetGUIStatus("Checking for bid result")
+			$FF = FFGetPixel($ButtonRegion[0] + $BidR[0], $ButtonRegion[1] + $yBidR + $BuyOffset[2] * $i, $SSN)
+			If $FF = $Valid[0] Or $FF = $Valid[1] Then
+				SetGUIStatus("Correct pixel detected, counter incremented")
+				$count += 1
+			Else
+				SetGUIStatus("Not a valid pixel")
+			EndIf
+		Next
+		If $count > 1 Then
+			SetGUIStatus("BidR " & $i)
+			Return ($i)
+		EndIf
+	Next

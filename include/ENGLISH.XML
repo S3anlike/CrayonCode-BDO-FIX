@@ -1,0 +1,51 @@
+<status_log>Status Log</status_log>
+<global_settings>Global Settings</global_settings>
+<loot_settings>Loot Settings</loot_settings>
+<rarity_settings>Minimum Rarity:</rarity_settings>
+<fish_colors>Gold|Blue|Green|White|Specials Only</fish_colors>
+<fish_default_color>Blue</fish_default_color>
+<fish_color_tip>Pick up items that are equal or higher Rarity.</fish_color_tip>
+<silver_key>Loot Silver Key</silver_key>
+<silver_key_tip>Pick up Silverkey. (Ignores Minimum Rarity)</silver_key_tip>
+<relic>Loot Ancient Relic</relic>
+<relic_tip>Pick up Ancient Relics. (Ignores Minimum Rarity)</relic_tip>
+<coel>Loot Coelacanth</coel>
+<coel_tip>Pick up Coealacanth. (Ignores Minimum Rarity)</coel_tip>
+<event>Loot Event items</event>
+<event_tip>Pick up event items. (Ignores Minimum Rarity) [You can add new even items by putting a cropped .bmp or .png to res/event]</event_tip>
+<trash>Loot Trash</trash>
+<trash_tip>Do you want to pick up trash? Are you sure? (Will loot white rarity items with quantity)</trash_tip>
+<side_functions>Side Functions</side_functions>
+<feed_worker>Enable Feed Worker</feed_worker>
+<worker_tip>Will feed workers every 90 minutes. Make sure to have beer in the inventory.</worker_tip>
+<interval_tip>Interval in minutes.</interval_tip>
+<interval>Interval:</interval>
+<test>Test</test>
+<enable_buffs>Enable BuffKeys</enable_buffs>
+<buffkeys>Keys:</buffkeys>
+<side_functions_on>Loop Sidefunctions only</side_functions_on>
+<cl_settings>Client Settings</cl_settings>
+<cl_name>Client Name</cl_name>
+<cl_lang>Client Language</cl_lang>
+<rarity_tip>Pick up items that are equal or higher Rarity.</rarity_tip>
+<log>Enable Logfile</log>
+<screencap>Enable Screencap Loot</screencap>
+<relic_reserve>Enable reserving slots for relics, slots to reserve (if enabled):</relic_reserve>
+<dry>Drying Settings</dry>
+<dry_fish>Enable Drying Fish</dry_fish>
+<dry_tip>Will dry fish when inventory is almost full. Empty Slots will be automatically evaluated after.</dry_tip>
+<dry_rarity>Max Rarity:</dry_rarity>
+<dry_colors>White|Green|Blue|Gold</dry_colors>
+<dry_default_color>White</dry_default_color>
+<dry_max_rarity>Maxmum rarity to use for drying.</dry_max_rarity>
+<inven_settings>Inventory_Settings</inven_settings>
+<discard_rods>Enable Discard Rods</discard_rods>
+<discard_tip>Discards disposable fishingrods. (Those that can't be repaired)</discard_tip>
+<buffer>Buffer Size:</buffer>
+<stats>Tab_Stats</stats>
+<stats_tip>|Session|Total|</stats_tip>
+<b_save>Save Settings</b_save>
+<b_fish>Start Fishing [F4]</b_fish>
+<b_mini>Solve Minigame [F5]</b_mini>
+<b_quit>Quit [CTRL+F1]</b_quit>
+<b_pause>Un/Pause [F3]</b_pause>

@@ -1,0 +1,51 @@
+<status_log>Journal d'état</status_log>
+<global_settings>Paramètres Globaux</global_settings>
+<loot_settings>Paramètres Butin</loot_settings>
+<rarity_settings>Rareté minimum:</rarity_settings>
+<fish_colors>Jaune | Bleu | Vert | Blanc | Spécial seulement</fish_colors>
+<fish_default_color>Bleu</fish_default_color>
+<fish_color_tip>Garder des objets qui sont égaux ou supérieurs à la rareté.</fish_color_tip>
+<silver_key>Loot Silver Key</silver_key>
+<silver_key_tip>Garder Silverkey. (Ignore la rareté minimale)</silver_key_tip>
+<relic>Loot Ancient Relic</relic>
+<relic_tip>Garder Ancient Relics. (Ignore la rareté minimale)</relic_tip>
+<coel>Loot Coelacanth</coel>
+<coel_tip>Garder Coelacanth. (Ignore la rareté minimale)</coel_tip>
+<event>Loot Event items</event>
+<event_tip>Garder Loot Event items. (Ignore la rareté minimale) [Vous pouvez ajouter de nouveaux items en ajoutant un .bmp ou .png à res / event]</event_tip>
+<trash>Loot Trash</trash>
+<trash_tip>Voulez-vous retirer des ordures? Êtes-vous sûr? (Perdre des objets de rareté blanche avec quantité)</trash_tip>
+<side_functions>Fonctions latérales</side_functions>
+<feed_worker>Activer Feed Worker</feed_worker>
+<worker_tip>Alimente les travailleurs toutes les 90 minutes. Assurez-vous d'avoir de la bière dans l'inventaire.</worker_tip>
+<interval_tip>Intervalle en minutes.</interval_tip>
+<interval>Intervalle:</interval>
+<test>Tester</test>
+<enable_buffs>Activer BuffKeys</enable_buffs>
+<buffkeys>Clés:</buffkeys>
+<side_functions_on>Loop Sidefunctions only</side_functions_on>
+<cl_settings>Paramètres du client</cl_settings>
+<cl_name>Nom du client</cl_name>
+<cl_lang>Langue du client</cl_lang>
+<rarity_tip>Garder des objets qui sont égaux ou supérieurs à la rareté.</rarity_tip>
+<log>Activer le fichier journal</log>
+<screencap>Activer la capture d'écran du butin</screencap>
+<relic_reserve>Activer et réserver des emplacements pour les relics :</relic_reserve>
+<dry>Paramètres de séchage</dry>
+<dry_fish>Activer le séchage du poisson</dry_fish>
+<dry_tip>Le séchage du poisson fonctionnera lors d'un inventaire plein avec une vérification des emplacements vide de l'inventaire.</dry_tip>
+<dry_rarity>Rareté maximum :</dry_rarity>
+<dry_colors>Blanc | Vert | Bleu | Jaune</dry_colors>
+<dry_default_color>Blanc</dry_default_color>
+<dry_max_rarity>La rareté maximale à utiliser pour le séchage.</dry_max_rarity>
+<inven_settings>Paramètres Inventaire</inven_settings>
+<discard_rods>Activer la suppression des cannes à pêche usées.</discard_rods>
+<discard_tip>Supprimer les cannes à pêche usées.</discard_tip>
+<buffer>Taille du tampon:</buffer>
+<stats>Statistiques</stats>
+<stats_tip>| Session | Total |</stats_tip>
+<b_save>Enregistrer les paramètres</b_save>
+<b_fish>Débuter la pêche [F4]</b_fish>
+<b_mini>Résoudre Minigame [F5]</b_mini>
+<b_quit>Quitter [CTRL + F1]</b_quit>
+<b_pause>Pause / Reprise [F3]</b_pause>
