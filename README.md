@@ -1,7 +1,7 @@
 # CrayonCode-BDO-Project Rev. 30 (10/28/2018) Halloween Event/ UI Update
 
 - UI FIXED!
-- FISHING FIXED! (Inventory Bugs little bit)
+- FISHING FIXED!
 - Event ADDED!
 
 ## FOR FISHING ENTHUSIASTS:
