@@ -31,8 +31,8 @@ Opt("SendKeyDelay", 100)
 
 #Region - Autoupdate
 
-Global $VersionsInfo = "https://raw.githubusercontent.com/S3anlike/CrayonCode-BDO-FIX/master/config/version.ini"
-Global $ChangelogLink = "https://raw.githubusercontent.com/S3anlike/CrayonCode-BDO-FIX/master/config/changelog.txt"
+Global $VersionsInfo = "https://raw.githubusercontent.com/davidgao93/CrayonCode-BDO-Project/master/config/version.ini"
+Global $ChangelogLink = "https://raw.githubusercontent.com/davidgao93/CrayonCode-BDO-Project/master/config/changelog.txt"
 Global $oldVersion = IniRead("config\updater.ini","Version","FVersion","NotFound")
 Global $newVersion = "0.0"
 
@@ -462,13 +462,13 @@ Func WaitForMenu($show = False, $timeout = 5)
 EndFunc   ;==>WaitForMenu
 
 Func OCInventory($open = True)
-	Local Const $Offset[2] = [52, 125] ; Offset from reference_inventory to left border of first Inventory Slot.
+	Local Const $Offset[2] = [-1, 130] ; Offset from reference_inventory to left border of first Inventory Slot.
 	Local $IS = False
 	Local $C[2]
 	Local $timer = TimerInit()
 	While Not $IS And $Fish
 		Sleep(250)
-		$IS = _ImageSearchArea("res/reference_inventory.png", 0, $Res[0], $Res[1], $Res[2], $Res[3], $C[0], $C[1], 10, 0)
+		$IS = _ImageSearchArea("res/reference_inventory.png", 0, $Res[0], $Res[1], $Res[2], $Res[3], $C[0], $C[1], 40, 0)
 		Sleep(250)
 		If $IS = True Then ; If the inventory is already open...
 			If $open = True Then ; If $open = True return the inventory coordinates
@@ -503,7 +503,7 @@ Func SearchInventory(ByRef $imagelist, $shadevariation = 0, $transparency = "", 
 	If Not IsArray($InvA) Then Return False
 	VMouse($InvA[0] + 48 * 8, $InvA[1], 1, "left") ; Click on Inventory to get focus
 
-	Local $IW[4] = [$InvA[0], $InvA[1], $InvA[0] + 48 * 8, $InvA[1] + 47 * 8]
+	Local $IW[4] = [$InvA[0], $InvA[1], $InvA[0] + 55 * 8, $InvA[1] + 55 * 8]
 	For $k = 0 To 2
 		MouseFreeZone($IW[0], $IW[1], $IW[2], $IW[3], $IW[0] - 50, $IW[1])
 		For $i = 0 To UBound($imagelist) - 1
@@ -552,7 +552,7 @@ Func DetectFreeInventory()
 		For $j = 0 To 7 Step 1
 			Local $String = $L & $j
 			For $i = 0 To 7 Step 1
-				$IS = _ImageSearchArea("res/reference_empty.png", 0, $InvA[0] + $i * 48, $InvA[1] + $j * 47, $InvA[0] + 48 + $i * 48, $InvA[1] + 47 + $j * 47, $x, $y, 35, 0)
+				$IS = _ImageSearchArea("res/reference_empty.png", 1, $InvA[0] + $i * 55, $InvA[1] + $j * 55, $InvA[0] + 55 + $i * 55, $InvA[1] + 55 + $j * 55, $x, $y, 20, 0)
 				If $IS = True Then
 					$Free += 1
 					$String &= "[_]"
@@ -745,13 +745,13 @@ Func InspectFishingrod()
 	Local $InvA = OCInventory(True)
 	If IsArray($InvA) = False Then Return False
 
-	$IS = _ImageSearchArea($equip, 1, $Res[0], $Res[1], $Res[2], $Res[3], $x, $y, 10, "White")
+	$IS = _ImageSearchArea($equip, 1, $Res[0], $Res[1], $Res[2], $Res[3], $x, $y, 25, "White")
 	If $IS = True Then
 		SetGUIStatus("Equipment found")
 		MouseFreeZone($x - 200, $y - 40, $Res[2], $y + 400, $x, $y - 50)
 		Local $WS[4] = [$x + $WeaponOffSet[0] - 24, $y + $WeaponOffSet[1] - 24, $x + $WeaponOffSet[0] + 24, $y + $WeaponOffSet[1] + 24]
 
-		$IS = _ImageSearchArea($empty, 1, $WS[0], $WS[1], $WS[2], $WS[3], $x, $y,200)
+		$IS = _ImageSearchArea($empty, 1, $WS[0], $WS[1], $WS[2], $WS[3], $x, $y, 200)
 		If $IS = True Then
 			OCInventory(False)
 			SetGUIStatus("rod_empty detected")
@@ -773,7 +773,7 @@ Func SwapFishingrod($discard = False)
 
 	SetGUIStatus("Trying to swap Fishingrod. Discard = " & $discard)
 
-	Local $C = SearchInventory($Fishingrods, 20)
+	Local $C = SearchInventory($Fishingrods, 200)
 	If IsArray($C) Then
 		SetGUIStatus("Equipping Fishingrod")
 		MouseClick("right", $C[0], $C[1])
@@ -877,7 +877,7 @@ Func DetectLoot(ByRef $LWref) ; Identifies Rarity by bordercolor and Empty, Tras
 			EndIf
 		Next
 		For $i = 1 To UBound($EventIdentifier) - 1 Step 1 ; Check for Event items (includes all images in res/fishing/event/ folder)
-			If _ImageSearchArea("res/fishing/event/" & $EventIdentifier[$i], 0, $LW[0] + $LW[4] * $j, $LW[1], $LW[2] + 44 + $LW[4] * $j, $LW[3], $x, $y, 50, 0) = 1 Then
+			If _ImageSearchArea("res/fishing/event/" & $EventIdentifier[$i], 0, $LW[0] + $LW[4] * $j, $LW[1], $LW[2] + 44 + $LW[4] * $j, $LW[3], $x, $y, 70, 0) = 1 Then
 				$Loot[$j][2] = $i
 			EndIf
 		Next
