@@ -90,8 +90,8 @@
 
 #Region - Autoupdate
 
-Global $VersionsInfo = "https://raw.githubusercontent.com/S3anlike/CrayonCode-BDO-FIX/master/config/version.ini"
-Global $ChangelogLink = "https://raw.githubusercontent.com/S3anlike/CrayonCode-BDO-FIX/master/config/changelog.txt"
+Global $VersionsInfo = "https://raw.githubusercontent.com/davidgao93/CrayonCode-BDO-Project/master/config/version.ini"
+Global $ChangelogLink = "https://raw.githubusercontent.com/davidgao93/CrayonCode-BDO-Project/master/config/changelog.txt"
 Global $oldVersion = IniRead("config\updater.ini","Version","PVersion","NotFound")
 Global $newVersion = "0.0"
 

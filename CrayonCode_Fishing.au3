@@ -3,7 +3,7 @@
 	AutoIt Version: 3.3.14.2
 	Author:         CrayonCode
 	Version:		Alpha 0.51
-	Contact:		https://discord.gg/yEqadvZ edited by s3anlike & Rodent11 & David
+	Contact:		https://discord.gg/yEqadvZ Fixed by s3anlike
 
 #ce ----------------------------------------------------------------------------
 
@@ -25,59 +25,11 @@
 #include "Telegram.au3"
 
 OnAutoItExitRegister(_ImageSearchShutdown)
-Opt("MouseClickDownDelay", 150)
-Opt("MouseClickDelay", 150)
-Opt("SendKeyDelay", 100)
+Opt("MouseClickDownDelay", 100)
+Opt("MouseClickDelay", 50)
+Opt("SendKeyDelay", 50)
 
-#Region - Autoupdate
 
-Global $VersionsInfo = "https://raw.githubusercontent.com/S3anlike/CrayonCode-BDO-FIX/master/config/version.ini"
-Global $ChangelogLink = "https://raw.githubusercontent.com/S3anlike/CrayonCode-BDO-FIX/master/config/changelog.txt"
-Global $oldVersion = IniRead("config\updater.ini","Version","FVersion","NotFound")
-Global $newVersion = "0.0"
-
-$Ini = InetGet($VersionsInfo,@ScriptDir & "\config\version.ini") ;download version.ini
-$Changelog = InetGet($ChangelogLink, @ScriptDir & "\config\changelog.txt") ;download changelog.txt
-
-If $Changelog = 0 Then
-	MsgBox(0, "ERROR", "Unable to fetch changelog from Github, are you connected to the network? Attempting to check for version...")
-EndIf
-
-If $Ini = 0 Then ;was the download of version.ini successful?
-    MsgBox(0,"ERROR","Unable to fetch from Github - maybe it's down?")
-Else
-    $newVersion = IniRead (@ScriptDir & "\config\version.ini","Version","FVersion","") ;reads the new version out of version.ini
-    If $NewVersion = $oldVersion Then ;compare old and new
-        ;MsgBox (0,"Autoupdate","You're running version " & $NewVersion)
-    Else
-        $msg = MsgBox (4,"Autoupdate","Update available, revision: " & $newVersion & ". You are currently on revision: " & $oldVersion & ". Do you want to update?")
-        If $msg = 7 Then ;No was pressed
-            ;FileDelete(@ScriptDir & "\config\version.ini")
-            ;Exit
-        ElseIf $msg = 6 Then ;OK was pressed
-            $downloadLink = IniRead(@ScriptDir & "\config\version.ini","Version","Fdownload","NotFound")
-            $dlhandle = InetGet($downloadLink,@ScriptDir & "\CrayonCode_Fishing" & $newVersion & ".au3",1,1)
-            ProgressOn("", "", "",-1,-1,16) ;creates an progressbar
-            $Size = InetGetSize($downloadLink,1) ;get the size of the update
-            While Not InetGetInfo($dlhandle, 2)
-                $Percent = (InetGetInfo($dlhandle,0)/$Size)*100
-                ProgressSet( $Percent, $Percent & " percent");update progressbar
-                Sleep(1)
-            WEnd
-            ProgressSet(100 , "Done", "Complete");show complete progressbar
-            sleep(500)
-            ProgressOff() ;close progress window
-            IniWrite("config\updater.ini","Version","FVersion",$NewVersion) ;updates update.ini with the new version
-            InetClose($dlhandle)
-            $File1 =  (@ScriptDir & "\config\changelog.txt")
-			MsgBox(-1, "Autoupdate", FileRead($File1, FileGetSize($File1)))
-			;FileDelete(@ScriptDir & "\version.ini")
-			_terminate()
-            EndIf
-    EndIf
-EndIf
-;FileDelete(@ScriptDir & "\version.ini")
-#EndRegion - Autoupdate
 
 
 Global $Fish = False
@@ -462,7 +414,7 @@ Func WaitForMenu($show = False, $timeout = 5)
 EndFunc   ;==>WaitForMenu
 
 Func OCInventory($open = True)
-	Local Const $Offset[2] = [-1, 130] ; Offset from reference_inventory to left border of first Inventory Slot.
+	Local Const $Offset[2] = [-3, 125] ; Offset from reference_inventory to left border of first Inventory Slot.
 	Local $IS = False
 	Local $C[2]
 	Local $timer = TimerInit()
@@ -501,7 +453,7 @@ Func SearchInventory(ByRef $imagelist, $shadevariation = 0, $transparency = "", 
 	If $reopen = True Then OCInventory(False)
 	Local $InvA = OCInventory(True)
 	If Not IsArray($InvA) Then Return False
-	VMouse($InvA[0] + 48 * 8, $InvA[1], 1, "left") ; Click on Inventory to get focus
+	VMouse($InvA[0] + 55 * 8, $InvA[1], 1, "left") ; Click on Inventory to get focus
 
 	Local $IW[4] = [$InvA[0], $InvA[1], $InvA[0] + 55 * 8, $InvA[1] + 55 * 8]
 	For $k = 0 To 2
@@ -552,7 +504,7 @@ Func DetectFreeInventory()
 		For $j = 0 To 7 Step 1
 			Local $String = $L & $j
 			For $i = 0 To 7 Step 1
-				$IS = _ImageSearchArea("res/reference_empty.png", 1, $InvA[0] + $i * 55, $InvA[1] + $j * 55, $InvA[0] + 55 + $i * 55, $InvA[1] + 55 + $j * 55, $x, $y, 20, 0)
+				$IS = _ImageSearchArea("res/reference_empty.png", 0, $InvA[0] + $i * 55, $InvA[1] + $j * 55, $InvA[0] + 55 + $i * 55, $InvA[1] + 55 + $j * 55, $x, $y, 20, 0)
 				If $IS = True Then
 					$Free += 1
 					$String &= "[_]"
@@ -626,7 +578,7 @@ Func ReelIn() ; Solves the fishing timing minigame
 
 	Local $timer = TimerInit()
 	While TimerDiff($timer) < 3000 And $Fish
-		$IS = _ImageSearchArea($ReelIn,10, $Res[0], $Res[1], $Res[2], $Res[3], $x, $y, 15, "White")
+		$IS = _ImageSearchArea($ReelIn, 0, $Res[0], $Res[1], $Res[2], $Res[3], $x, $y, 10, "White")
 		If $IS = True Then ExitLoop
 	WEnd
 
@@ -648,7 +600,7 @@ Func FindRiddleAnchor() ; Waits 4 Seconds for the letter minigame timeline to ap
 	Local $timer = TimerInit()
 	Local $C[2] = [-1, -1]
 	While TimerDiff($timer) / 1000 <= 4 And $Fish
-		If _ImageSearchArea($RiddleAnchor, 0, $Res[0], $Res[1], $Res[2], $Res[3], $C[0], $C[1], 10, "0x00ff00") = 1 Then
+		If _ImageSearchArea($RiddleAnchor, 0, $Res[0], $Res[1], $Res[2], $Res[3], $C[0], $C[1], 25, "0x00ff00") = 1 Then
 			Return ($C)
 		EndIf
 	WEnd
@@ -657,7 +609,7 @@ EndFunc   ;==>FindRiddleAnchor
 
 Func Riddle($iAnchorX, $iAnchorY, $AnchorColor, $SSN) ; Recognizes arrow direction by checking offsets for $AnchorColor
 	Local Const $ArrowsX[8] = [-2, +3, +3, -2, -2, -2, +3, +3] ; vv^^>><<
-	Local Const $ArrowsY[8] = [-3, -3, +2, +2, +3, -3, +2, -2] ; vv^^>><<
+	Local Const $ArrowsY[8] = [-3, -3, +0, +0, +3, -3, +2, -2] ; vv^^>><<
 	Local $ai[8], $iL = 4
 
 	For $i = 0 To 7 Step 1
@@ -687,7 +639,7 @@ Func Riddler() ; Solves the fishing letter minigame
 		Return False
 	EndIf
 
-	$aAnchor[0] -= 45 ; Base Offset to include letters since anchor is below
+	$aAnchor[0] -= 45; Base Offset to include letters since anchor is below
 	$aAnchor[1] -= 60
 	FFSnapShot($aAnchor[0] - 10, $aAnchor[1] - 10, $aAnchor[0] + $Spacing * 10 + 10, $aAnchor[1] + 40, $SSN)
 	$LetterColor = FFGetPixel($aAnchor[0] + $AnchorOffset[0], $aAnchor[1] + $AnchorOffset[1], $SSN)
@@ -725,7 +677,7 @@ EndFunc   ;==>Riddler
 Func Cast()
 
 	SetGUIStatus("Casting Fishingrod")
-
+	Sleep(1000)
 	CoSe("{SPACE}")
 
 	Local $timer = TimerInit()
@@ -749,9 +701,9 @@ Func InspectFishingrod()
 	If $IS = True Then
 		SetGUIStatus("Equipment found")
 		MouseFreeZone($x - 200, $y - 40, $Res[2], $y + 400, $x, $y - 50)
-		Local $WS[4] = [$x + $WeaponOffSet[0] - 24, $y + $WeaponOffSet[1] - 24, $x + $WeaponOffSet[0] + 24, $y + $WeaponOffSet[1] + 24]
+		Local $WS[4] = [$x + $WeaponOffSet[0] - 200, $y + $WeaponOffSet[1] - 200, $x + $WeaponOffSet[0] + 200, $y + $WeaponOffSet[1] + 200]
 
-		$IS = _ImageSearchArea($empty, 1, $WS[0], $WS[1], $WS[2], $WS[3], $x, $y, 200)
+		$IS = _ImageSearchArea($empty, 1, $WS[0], $WS[1], $WS[2], $WS[3], $x, $y, 20)
 		If $IS = True Then
 			OCInventory(False)
 			SetGUIStatus("rod_empty detected")
@@ -773,7 +725,7 @@ Func SwapFishingrod($discard = False)
 
 	SetGUIStatus("Trying to swap Fishingrod. Discard = " & $discard)
 
-	Local $C = SearchInventory($Fishingrods, 200)
+	Local $C = SearchInventory($Fishingrods, 20)
 	If IsArray($C) Then
 		SetGUIStatus("Equipping Fishingrod")
 		MouseClick("right", $C[0], $C[1])
@@ -843,9 +795,9 @@ Func DetectLoot(ByRef $LWref) ; Identifies Rarity by bordercolor and Empty, Tras
 	SetGUIStatus("DetectLoot Waiting for Item List")
 	Local $timer = TimerInit()
 	While $IS = False And $Fish
-		$IS = _ImageSearchArea($lootbag, 1, ($Res[0] + $Res[2]) / 2, $Res[1], $Res[2], $Res[3], $x, $y, 20, "White") ; Search on the right half of the window
+		$IS = _ImageSearchArea($lootbag, 1, ($Res[0] + $Res[2]) / 2, $Res[1], $Res[2], $Res[3], $x, $y, 25, "White") ; Search on the right half of the window
 		If $IS = True Then
-			Local $LWOffset[2] = [-80, 55]
+			Local $LWOffset[2] = [-38, 55]
 			Local $LW[5] = [$x + $LWOffset[0], $y + $LWOffset[1] - 24, $x + $LWOffset[0] + 2, $y + $LWOffset[1] + 24, 47]
 			$LWref = $LW
 			ExitLoop
@@ -863,7 +815,7 @@ Func DetectLoot(ByRef $LWref) ; Identifies Rarity by bordercolor and Empty, Tras
 			EndIf
 		Next
 		If $Loot[$j][0] = 0 Then ; If Rarity = 0 then check if slot is empty or has "1" as quantity indicator (trash)
-			$IS = _ImageSearchArea("res/fishing/loot_empty.png", 0, $LW[0] + $LW[4] * $j, $LW[1], $LW[2] + 44 + $LW[4] * $j, $LW[3], $x, $y, 10, 0)
+			$IS = _ImageSearchArea("res/fishing/loot_empty.png", 0, $LW[0] + $LW[4] * $j, $LW[1], $LW[2] + 44 + $LW[4] * $j, $LW[3], $x, $y, 50, 0)
 			If $IS = True Then
 				$Loot[$j][0] = -2
 			Else ; check for quanity
@@ -877,7 +829,7 @@ Func DetectLoot(ByRef $LWref) ; Identifies Rarity by bordercolor and Empty, Tras
 			EndIf
 		Next
 		For $i = 1 To UBound($EventIdentifier) - 1 Step 1 ; Check for Event items (includes all images in res/fishing/event/ folder)
-			If _ImageSearchArea("res/fishing/event/" & $EventIdentifier[$i], 0, $LW[0] + $LW[4] * $j, $LW[1], $LW[2] + 44 + $LW[4] * $j, $LW[3], $x, $y, 70, 0) = 1 Then
+			If _ImageSearchArea("res/fishing/event/" & $EventIdentifier[$i], 0, $LW[0] + $LW[4] * $j, $LW[1], $LW[2] + 44 + $LW[4] * $j, $LW[3], $x, $y, 50, 0) = 1 Then
 				$Loot[$j][2] = $i
 			EndIf
 		Next
@@ -1370,10 +1322,10 @@ Func WorkerFeed($WorkerEnable, $WorkerCD)
 		Local Const $WorkerIcon = "res/esc_worker.png"
 		Local Const $WorkerRecoverAnchor = "res/worker_recover_anchor.png"
 		Local Const $WorkerOffsets[4][2] = [ _
-				[-300, 550], _ ; Recover All
-				[-700, 20], _ ; Select food
-				[-650, 200], _ ; Confirm
-				[-188, 550]] ; Repeat All
+				[50, 630], _ ; Recover All
+				[-330, 100], _ ; Select food
+				[-270, 280], _ ; Confirm
+				[200, 630]] ; Repeat All
 		Local $x, $y, $IS
 		SetGUIStatus(StringFormat("Feeding Worker [%.1fm CD]", $WorkerCD / 60000))
 		WaitForMenu(True)
